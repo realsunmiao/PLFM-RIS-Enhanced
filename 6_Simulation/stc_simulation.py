@@ -260,7 +260,10 @@ def main():
     
     # 图 3: 脉冲压缩结果
     ax3 = axes[1, 0]
-    range_axis = np.arange(len(compressed)) * c / (2 * fs)
+    # 匹配滤波 'same' 模式引入 (n-1)-(n-1)//2 个采样点的时延偏移，
+    # 补偿后脉冲压缩峰值对齐到目标真实距离
+    delay_offset = (len(compressed) - 1) - (len(compressed) - 1) // 2
+    range_axis = (np.arange(len(compressed)) - delay_offset) * c / (2 * fs)
     ax3.plot(range_axis, 20 * np.log10(np.abs(compressed) + 1e-10), 'b-', linewidth=1)
     ax3.set_xlabel('Range (m)')
     ax3.set_ylabel('Amplitude (dB)')
