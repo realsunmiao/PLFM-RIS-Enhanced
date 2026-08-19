@@ -1,0 +1,136 @@
+CERN Open Hardware Licence Version 2 - Permissive
+
+Preamble
+
+CERN has developed this licence to promote collaboration between hardware
+designers and to provide a legal tool which supports the freedom to use,
+study, modify, share and distribute hardware designs and products based on
+those designs. Version 2 of the CERN Open Hardware Licence comes in two
+variants: this licence ("CERN-OHL-P") and the reciprocal variant
+("CERN-OHL-S").
+
+The CERN-OHL-P is copyright CERN 2020. Anyone is welcome to use it, in
+unmodified form only.
+
+Use of this Licence does not imply any endorsement by CERN of any Licensor or
+their designs nor does it imply any involvement by CERN in their development.
+
+
+1 Definitions
+
+  1.1 'Licence' means this CERN Open Hardware Licence.
+
+  1.2 'Compatible Licence' means
+
+       a) any earlier version of the CERN Open Hardware licence;
+
+       b) any version of the CERN-OHL-S or CERN-OHL-P;
+
+       c) any licence which permits You to treat the Source to which it
+          applies as licensed under CERN-OHL-S or CERN-OHL-P provided that on
+          Conveyance of any such Source, or any associated Product You treat
+          the Source in question as being licensed under CERN-OHL-S or
+          CERN-OHL-P as appropriate; and
+
+       d) any licence which permits You to treat the Source to which it
+          applies as licensed under MIT, Apache-2.0, BSD-2-Clause,
+          BSD-3-Clause, MPL-2.0, LGPL-2.1-or-later, GPL-2.0-or-later, or
+          GPL-3.0-or-later.
+
+  1.3 'Source' means information such as design materials or digital code
+      which can be applied to Make or test a Product or to prepare a Product
+      for use, Conveyance or sale, regardless of its medium or how it is
+      expressed. It may include Notices.
+
+  1.4 'Covered Source' means Source that is explicitly made available under
+      this Licence.
+
+  1.5 'Product' means any device, component, work or physical object, whether
+      in finished or intermediate form, arising from the use, application or
+      processing of Covered Source.
+
+  1.6 'Make' means to create or configure something, whether by manufacture,
+      assembly, compiling, loading or applying Covered Source or another
+      Product or otherwise.
+
+  1.7 'Available Component' means any part, sub-assembly, library or code
+      which:
+
+       a) is commercially available or can be made using readily available
+          tools and materials; or
+
+       b) is licensed to You under a Compatible Licence.
+
+  1.8 'Convey' means to communicate to the public or distribute.
+
+
+2 Applicability
+
+  2.1 This Licence governs the use, copying, modification, Conveyance of
+      Covered Source and Products, and tells You what rights You have to do
+      so.
+
+  2.2 This Licence does not apply to software, firmware, or other code which
+      is not part of a Product. Such items are covered by separate licences.
+
+  2.3 If You are an employee or contractor of the Licensor, Your employer's
+      or client's internal policies regarding intellectual property do not
+      affect Your rights under this Licence.
+
+
+3 Rights and Obligations
+
+  3.1 Grant of Rights
+
+      Subject to the terms of this Licence, the Licensor grants You a
+      perpetual, worldwide, non-exclusive, royalty-free licence to:
+
+       a) use, copy, modify, and Convey Covered Source;
+
+       b) Make and Convey Products; and
+
+       c) use Products.
+
+  3.2 Conditions
+
+      The rights granted in Section 3.1 are subject to the following
+      conditions:
+
+       a) You must keep intact all Notices in the Covered Source;
+
+       b) When You Convey Covered Source, You must include a copy of this
+          Licence;
+
+       c) When You Convey a Product, You must ensure that the recipient has
+          access to the Notices required by Section 3.2(a); and
+
+       d) If You modify Covered Source, You must clearly indicate that You
+          have done so.
+
+  3.3 No Additional Restrictions
+
+      You may not impose any additional restrictions on the exercise of the
+      rights granted under this Licence.
+
+
+4 Disclaimer of Warranties and Limitation of Liability
+
+  4.1 EXCEPT AS EXPRESSLY STATED IN THIS LICENCE, THE COVERED SOURCE AND
+      PRODUCTS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+      FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT.
+
+  4.2 IN NO EVENT WILL THE LICENSOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+      INCIDENTAL, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES ARISING FROM
+      THIS LICENCE OR THE USE OF THE COVERED SOURCE OR PRODUCTS, EVEN IF THE
+      LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+
+5 General
+
+  5.1 This Licence shall be governed by and construed in accordance with the
+      laws of Switzerland, excluding its conflict of law provisions.
+
+  5.2 Any dispute arising out of or in connection with this Licence shall be
+      submitted to the exclusive jurisdiction of the courts of Geneva,
+      Switzerland.
