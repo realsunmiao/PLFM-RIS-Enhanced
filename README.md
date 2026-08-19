@@ -112,6 +112,10 @@ PLFM-RIS-Enhanced/
 
 ## 🚀 快速开始
 
+**📖 新人必读**: [GETTING_STARTED.md](GETTING_STARTED.md) - 从零开始的详细复现指南
+
+### 选择你的路径
+
 ### 硬件要求
 
 - **RIS 天线阵列**: 8×8 单元 (64 个 RIS 单元)
