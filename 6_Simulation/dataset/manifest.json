@@ -1,0 +1,20 @@
+{
+  "project": "PLFM-RIS-Enhanced",
+  "generator": "6_Simulation/generate_dataset.py",
+  "generated_at": "2026-08-19T15:19:55+0800",
+  "seed": 42,
+  "num_scenes": 54,
+  "success_rate": 0.8333,
+  "system_parameters": {
+    "f0_hz": 10500000000.0,
+    "bandwidth_hz": 100000000.0,
+    "pulse_width_s": 1e-05,
+    "fs_hz": 200000000.0,
+    "prf_hz": 10000.0,
+    "num_pulses": 64,
+    "range_resolution_m": 1.5,
+    "speed_resolution_mps": 2.232142857142857,
+    "max_unambiguous_speed_mps": 71.42857142857143,
+    "effective_max_range_m": 750.0
+  }
+}

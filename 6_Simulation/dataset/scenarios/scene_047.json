@@ -1,0 +1,49 @@
+{
+  "id": 47,
+  "type": "multi3",
+  "azimuth_deg": 30,
+  "targets": [
+    [
+      300,
+      20
+    ],
+    [
+      600,
+      -5
+    ],
+    [
+      900,
+      35
+    ]
+  ],
+  "snr_db": null,
+  "true_ranges_m": [
+    300,
+    600,
+    900
+  ],
+  "detected_ranges_m": [
+    300.0,
+    600.0,
+    288.0,
+    312.0
+  ],
+  "range_errors_m": [
+    0.0,
+    0.0,
+    612.0
+  ],
+  "detected_velocity_mps": 20.089285714285715,
+  "true_velocity_mps": 20,
+  "velocity_error_mps": 0.0892857142857153,
+  "pslr_db": 2.491619708495463,
+  "range_resolution_m": 1.5,
+  "speed_resolution_mps": 2.232142857142857,
+  "window_truncated": [
+    false,
+    false,
+    true
+  ],
+  "success": false,
+  "runtime_s": 0.11
+}

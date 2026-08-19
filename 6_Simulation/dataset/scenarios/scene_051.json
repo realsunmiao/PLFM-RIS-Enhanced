@@ -1,0 +1,35 @@
+{
+  "id": 51,
+  "type": "noise",
+  "azimuth_deg": 30,
+  "targets": [
+    [
+      700,
+      10
+    ]
+  ],
+  "snr_db": 10,
+  "true_ranges_m": [
+    700
+  ],
+  "detected_ranges_m": [
+    699.75,
+    687.0,
+    712.5,
+    724.5
+  ],
+  "range_errors_m": [
+    0.25
+  ],
+  "detected_velocity_mps": 8.928571428571429,
+  "true_velocity_mps": 10,
+  "velocity_error_mps": -1.0714285714285712,
+  "pslr_db": 23.111198374128467,
+  "range_resolution_m": 1.5,
+  "speed_resolution_mps": 2.232142857142857,
+  "window_truncated": [
+    false
+  ],
+  "success": true,
+  "runtime_s": 0.11
+}

@@ -1,0 +1,35 @@
+{
+  "id": 30,
+  "type": "grid",
+  "azimuth_deg": 30,
+  "targets": [
+    [
+      700,
+      0
+    ]
+  ],
+  "snr_db": null,
+  "true_ranges_m": [
+    700
+  ],
+  "detected_ranges_m": [
+    699.75,
+    712.5,
+    687.0,
+    724.5
+  ],
+  "range_errors_m": [
+    0.25
+  ],
+  "detected_velocity_mps": 0.0,
+  "true_velocity_mps": 0,
+  "velocity_error_mps": 0.0,
+  "pslr_db": 23.129417353653558,
+  "range_resolution_m": 1.5,
+  "speed_resolution_mps": 2.232142857142857,
+  "window_truncated": [
+    false
+  ],
+  "success": true,
+  "runtime_s": 0.08
+}
