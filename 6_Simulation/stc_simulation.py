@@ -157,7 +157,8 @@ def simulate_target_echo(lfm_signal, target_range, target_velocity, c, fs):
     
     if sample_delay < len(lfm_signal):
         # 添加时延和多普勒频移
-        t = np.arange(len(lfm_signal)) / fs
+        # 多普勒相位只针对有回波的片段（长度与 lfm_signal[:-sample_delay] 一致）
+        t = np.arange(len(lfm_signal) - sample_delay) / fs
         doppler_phase = 2 * np.pi * doppler_freq * t
         
         echo[sample_delay:] = lfm_signal[:-sample_delay] * np.exp(1j * doppler_phase) * 0.1
