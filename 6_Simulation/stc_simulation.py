@@ -13,7 +13,7 @@ STC 算法仿真脚本 - 时空编码雷达系统仿真
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import chirp, fftconvolve
+from scipy.signal import fftconvolve
 
 
 def generate_lfm_signal(f0, bandwidth, pulse_width, fs):
@@ -128,17 +128,20 @@ def range_doppler_processing(data_matrix, fs, prf):
     return rd_map_db
 
 
-def simulate_target_echo(lfm_signal, target_range, target_velocity, c, fs):
+def simulate_target_echo(lfm_signal, target_range, target_velocity, c, fs,
+                         pulse_idx=0, prf=10e3):
     """
     模拟目标回波
-    
+
     参数:
         lfm_signal: 发射信号
         target_range: 目标距离 (m)
         target_velocity: 目标速度 (m/s)
         c: 光速 (m/s)
         fs: 采样率
-    
+        pulse_idx: 脉冲序号（慢时间索引，用于跨脉冲多普勒相位累积）
+        prf: 脉冲重复频率 (Hz)
+
     返回:
         echo: 回波信号
     """
@@ -157,9 +160,11 @@ def simulate_target_echo(lfm_signal, target_range, target_velocity, c, fs):
     
     if sample_delay < len(lfm_signal):
         # 添加时延和多普勒频移
-        # 多普勒相位只针对有回波的片段（长度与 lfm_signal[:-sample_delay] 一致）
+        # 多普勒相位 = 脉内快时间项 + 跨脉冲慢时间项 (pulse_idx/prf)，
+        # 后者保证脉冲多普勒处理能正确测速
         t = np.arange(len(lfm_signal) - sample_delay) / fs
-        doppler_phase = 2 * np.pi * doppler_freq * t
+        slow_time = pulse_idx / prf
+        doppler_phase = 2 * np.pi * doppler_freq * (t + slow_time)
         
         echo[sample_delay:] = lfm_signal[:-sample_delay] * np.exp(1j * doppler_phase) * 0.1
     
@@ -181,8 +186,10 @@ def main():
     target_velocity = 10 # 目标速度 10 m/s
     
     # 波束指向
+    # 注意: array_factor_2d 的 steering 相位与 sin(elevation) 成正比，
+    # elevation=0 时波束在方位维无指向性（水平扇面），故取俯仰角 30°
     azimuth_target = 30  # 方位角 30°
-    elevation_target = 0 # 俯仰角 0°
+    elevation_target = 30 # 俯仰角 30°
     
     print("=" * 60)
     print("PLFM-RIS 雷达系统仿真")
@@ -225,9 +232,11 @@ def main():
     data_matrix = np.zeros((len(compressed), num_pulses), dtype=complex)
     
     for i in range(num_pulses):
-        # 模拟不同时刻的目标位置
+        # 模拟不同时刻的目标位置（跨脉冲慢时间相位累积，支持多普勒测速）
         current_range = target_range + target_velocity * (i / prf)
-        echo_pulse = simulate_target_echo(lfm_signal, current_range, target_velocity, c, fs)
+        echo_pulse = simulate_target_echo(lfm_signal, current_range,
+                                          target_velocity, c, fs,
+                                          pulse_idx=i, prf=prf)
         compressed_pulse = pulse_compression(echo_pulse, lfm_signal)
         data_matrix[:, i] = compressed_pulse
     
@@ -254,7 +263,7 @@ def main():
                        levels=50, cmap='jet')
     ax2.set_xlabel('Azimuth (°)')
     ax2.set_ylabel('Elevation (°)')
-    ax2.set_title(f'Beam Pattern (Steered to {azimuth_target}°)')
+    ax2.set_title(f'Beam Pattern (Steered to {azimuth_target}°, {elevation_target}°)')
     plt.colorbar(im2, ax=ax2, label='Gain (dB)')
     ax2.grid(True, alpha=0.3)
     
