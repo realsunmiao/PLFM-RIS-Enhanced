@@ -1,16 +1,16 @@
-Designator,Value,Quantity,Reference,Package,Manufacturer,MPN,Unit Price(USD),Supplier,Datasheet
-C1-C64,100pF,64,DC Block Capacitor,0402,Johanson,0402CG100JAT2A,0.08,DigiKey,https://www.johansondielectrics.com/
-C65-C128,10μF,64,Decoupling Capacitor,0402,Murata,GRM105C8104KA55D,0.05,Mouser,https://www.murata.com/
-D1-D64,N/A,64,PIN Diode,SOD-323,MACOM,MA4P7454B-402T,0.85,DigiKey,https://www.macom.com/products/pin-diodes/
-VR1-VR64,N/A,64,Varactor Diode,SOD-323,Skyworks,SMV1235-083LF,1.20,Mouser,https://www.skyworksinc.com/products/diodes/varactors/
-L1-L128,1μH,128,RF Choke Inductor,0603,Coilcraft,0603LS-102XGLC,0.15,DigiKey,https://www.coilcraft.com/
-R1-R63,100Ω,63,Isolation Resistor,0603,Vishay,CRCW0603F1000FKEA,0.03,Mouser,https://www.vishay.com/
-J1,SMA,1,RF Connector,SMA,Cinch,142-0701-801,3.50,DigiKey,https://www.cinchconnectivity.com/
-U1,XC7A100T,1,FPGA,CSG324,Xilinx,XC7A100T-1CSG324,45.00,Mouser,https://www.xilinx.com/products/silicon-devices/fpga/artix-7.html
-U2,STM32F746ZGT6,1,MCU,LQFP144,ST,STM32F746ZGT6,12.00,Mouser,https://www.st.com/en/microcontrollers-microprocessors/stm32f746zg.html
-U3-U10,74HC595,8,Shift Register,SOIC-16,TI,SN74HC595NSR,0.35,DigiKey,https://www.ti.com/product/SN74HC595
-U11,TPS54330,1,12V to 5V Buck,HTSSOP-16,TI,TPS54330DRCT,2.50,Mouser,https://www.ti.com/product/TPS54330
-U12,TPS62040,1,5V to 3.3V Buck,SON-10,TI,TPS62040DRCT,1.80,DigiKey,https://www.ti.com/product/TPS62040
-U13,TPS62140,1,3.3V to 1.8V Buck,SON-10,TI,TPS62140DRCT,2.00,Mouser,https://www.ti.com/product/TPS62140
-U14,TPS62080,1,1.8V to 1.0V Buck,SON-10,TI,TPS62080DSGR,1.90,DigiKey,https://www.ti.com/product/TPS62080
-Y1,100MHz,1,Crystal Oscillator,SMD-3225,Epson,SG-8018CB,1.50,Mouser,https://www.epsondevice.com/
+Designator,Value,Quantity,Reference,Package,KiCad Footprint,Manufacturer,MPN,Unit Price(USD),Supplier,LCSC 检索参考,备注
+C1-C64,100pF,64,DC Block Capacitor,0402,Capacitor_SMD:C_0402_1005Metric,Johanson,0402CG100JAT2A,0.08,DigiKey,0402 100pF C0G 50V,高频隔直电容 C0G 介质
+C65-C128,10μF,64,Decoupling Capacitor,0402,Capacitor_SMD:C_0402_1005Metric,Murata,GRM105C8104KA55D,0.05,Mouser,0402 10μF X5R 10V,电源去耦
+D1-D64,N/A,64,PIN Diode,SOD-323,Diode_SMD:D_SOD-323,MACOM,MA4P7454B-402T,0.85,DigiKey,立创无此型号请直购,射频PIN二极管 相位0/180切换 勿购淘宝
+VR1-VR64,N/A,64,Varactor Diode,SOD-323,Diode_SMD:D_SOD-323,Skyworks,SMV1235-083LF,1.20,Mouser,立创无此型号请直购,变容二极管 连续移相
+L1-L128,1μH,128,RF Choke Inductor,0603,Inductor_SMD:L_0603_1608Metric,Coilcraft,0603LS-102XGLC,0.15,DigiKey,0603 1μH 绕线电感,射频扼流
+R1-R63,100Ω,63,Isolation Resistor,0603,Resistor_SMD:R_0603_1608Metric,Vishay,CRCW0603F1000FKEA,0.03,Mouser,0603 100Ω 1%,隔离电阻
+J1,SMA,1,RF Connector,SMA,Connector_Coaxial:SMA_ThroughHole,Cinch,142-0701-801,3.50,DigiKey,SMA 穿板直头,50Ω 射频馈电
+U1,XC7A100T,1,FPGA,CSG324,Package_BGA:BGA-324_19.0x19.0mm_Layout18x18_P0.8mm_Ball0.5mm,Xilinx,XC7A100T-1CSG324,45.00,Mouser,XC7A100T-1CSG324C,Artix-7 主控
+U2,STM32F746ZGT6,1,MCU,LQFP144,Package_QFP:LQFP-144_20x20mm_P0.5mm,ST,STM32F746ZGT6,12.00,Mouser,STM32F746ZGT6,控制与通信
+U3-U10,74HC595,8,Shift Register,SOIC-16,Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,TI,SN74HC595NSR,0.35,DigiKey,SN74HC595NSR,级联串并转换
+U11,TPS54330,1,12V to 5V Buck,HTSSOP-16,Package_SO:HTSSOP-16_4.4x5mm_P0.65mm,TI,TPS54330DRCT,2.50,Mouser,TPS54330DRCT,电源轨1
+U12,TPS62040,1,5V to 3.3V Buck,VSON-10,Package_SON:VSON-10_3x3mm_P0.5mm,TI,TPS62040DRCT,1.80,DigiKey,TPS62040DRCT,电源轨2 封装以数据手册为准
+U13,TPS62140,1,3.3V to 1.8V Buck,VQFN-16,Package_DFN_QFN:VQFN-16_3.5x3.5mm_P0.5mm,TI,TPS62140DRCT,2.00,Mouser,TPS62140DRCT,电源轨3 封装以数据手册为准
+U14,TPS62080,1,1.8V to 1.0V Buck,VSON-10,Package_SON:VSON-10_3x3mm_P0.5mm,TI,TPS62080DSGR,1.90,DigiKey,TPS62080DSGR,电源轨4 封装以数据手册为准
+Y1,100MHz,1,Crystal Oscillator,SMD-3225,Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm,Epson,SG-8018CB,1.50,Mouser,3225 100MHz 有源晶振,FPGA 时钟
