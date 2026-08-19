@@ -5,6 +5,7 @@
 [![FPGA](https://img.shields.io/badge/fpga-Vivado%202020.1-orange.svg)](https://www.xilinx.com/)
 [![GitHub Stars](https://img.shields.io/github/stars/realsunmiao/PLFM-RIS-Enhanced?style=social)](https://github.com/realsunmiao/PLFM-RIS-Enhanced/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/realsunmiao/PLFM-RIS-Enhanced?style=social)](https://github.com/realsunmiao/PLFM-RIS-Enhanced/network/members)
+[![CI](https://github.com/realsunmiao/PLFM-RIS-Enhanced/actions/workflows/ci.yml/badge.svg)](https://github.com/realsunmiao/PLFM-RIS-Enhanced/actions/workflows/ci.yml)
 
 > **基于智能超表面(RIS)技术的下一代相控阵雷达系统**  
 > 通过时空编码(STC)架构革新,实现成本降低 50-60%,性能全面提升
@@ -93,15 +94,25 @@ PLFM-RIS-Enhanced/
 ├── .gitignore                        # Git 忽略规则
 ├── GITHUB_PUSH_GUIDE.md             # GitHub 推送指南
 │
+├── .github/workflows/ci.yml          # CI/CD 流水线
+│
 ├── 2_RIS_Antenna_Design/            # RIS 天线阵列设计
-│   └── README.md                     # 天线设计详细文档
+│   ├── README.md                     # 天线设计详细文档
+│   ├── BOM.csv                       # 物料清单（含 KiCad 封装/LCSC 检索参考）
+│   ├── GERBER_AND_3D_RELEASE_SPEC.md # Gerber/3D 发布规范与检查清单
+│   └── GERBER_MANUFACTURING_GUIDE.md # Gerber 导出与下单指南
 │
 ├── 4_STC_Firmware/                  # 时空编码固件
 │   ├── STC_Encoder.v                 # Verilog 时空编码核心模块
 │   └── Top_Module.v                  # FPGA 顶层模块
 │
 ├── 6_Simulation/                    # 软件仿真脚本
-│   └── stc_simulation.py            # STC 算法软件仿真
+│   ├── stc_simulation.py            # STC 算法软件仿真
+│   ├── generate_dataset.py          # 验证数据集生成器（54 场景）
+│   └── dataset/                     # 仿真验证数据集（JSON+CSV+manifest）
+│
+├── tests/                           # pytest 自动化测试
+│   └── test_stc_simulation.py
 │
 ├── docs/images/                     # 文档配图（仿真结果等）
 │
@@ -207,9 +218,39 @@ python stc_simulation.py
 
 四个子图分别为:LFM 时域波形(左上)、指向 30° 的波束方向图(右上)、500 m 处脉冲压缩尖峰(左下)与距离-多普勒图(右下)。
 
+### 仿真验证数据集
+
+`6_Simulation/generate_dataset.py` 批量运行 54 个场景（距离 100–1000 m × 速度 −50–60 m/s 网格、方位角 −60°–60° 扫描、多目标、加噪变体），提取检测距离/速度、误差、峰值旁瓣比等指标，输出:
+
+- `6_Simulation/dataset/scenarios/scene_XXX.json`: 逐场景指标
+- `6_Simulation/dataset/summary.csv`: 全场景汇总
+- `6_Simulation/dataset/manifest.json`: 系统参数与数据集元信息
+
+```bash
+cd 6_Simulation
+python generate_dataset.py          # 可加 --seed 42 --limit N
+```
+
+数据集在有效观测范围（≤750 m，单脉冲接收窗口限制）内 45/45 场景全部检测成功；>750 m 目标因回波截断失锁，已在 `window_truncated` 字段中如实标注。该边界由 `stc_simulation.py` 的单脉宽接收窗口模型决定，详见 manifest 中 `effective_max_range_m`。
+
+### 自动化测试
+
+`tests/test_stc_simulation.py` 基于 pytest 覆盖 LFM 信号、波束方向图、回波时延、脉冲压缩、距离-多普勒与数据集完整性:
+
+```bash
+pip install pytest
+pytest -v
+```
+
+### CI/CD 流水线
+
+`.github/workflows/ci.yml` 在 push/PR 时于 Python 3.9 与 3.12 上运行:单元测试 → 无头端到端仿真（验证 PNG 生成）→ 数据集可复现性校验。
+
 ### 修复记录
 
 - **2026-08-19**: 修复 `simulate_target_echo` 中的广播错误(ValueError: operands could not be broadcast together)。原实现中多普勒相位向量按完整信号长度生成,与延迟回波切片的长度不一致导致运行中断;现改为按回波切片长度生成,修复后脚本可完整跑通。
+- **2026-08-19**: 修复脉冲压缩距离轴偏移。匹配滤波 `same` 模式引入 `(n-1)-(n-1)//2` 个采样点的固定延迟,原距离轴未补偿导致目标峰值被映射到窗口外;现补偿后峰值与目标真实距离对齐。
+- **2026-08-19**: 数据集生成器改用相干回波模型（跨脉冲累积多普勒相位）,支持距离-多普勒测速;单目标测速误差 ≤1.1 m/s（FFT 量化分辨率）。
 
 ---
 
@@ -332,11 +373,17 @@ python stc_simulation.py
   - Python GUI 基础功能
   - 完整文档体系
 
+- ✅ **v1.1.0** (2026-08-19): 工程化补全
+  - ✅ 仿真验证数据集: 54 场景（距离/速度/方位角扫描 + 多目标 + 噪声），有效观测范围内 100% 检测成功
+  - ✅ 自动化测试: pytest 12 项（信号/波束/回波/脉冲压缩/距离-多普勒/数据集完整性）
+  - ✅ CI/CD 流水线: GitHub Actions 多 Python 版本（3.9/3.12）测试 + 端到端仿真 + 数据集校验
+  - ✅ 硬件文件规范: BOM 完善（KiCad 封装/LCSC 检索参考）+ Gerber/3D 发布规范与检查清单
+
 - 🔄 **规划中**:
+  - [ ] 真实 Gerber / 3D 文件: 待 KiCad 布局布线完成后按 `GERBER_AND_3D_RELEASE_SPEC.md` 归档
   - [ ] 完整硬件设计文件 (Gerber/BOM/3D)
-  - [ ] 仿真验证数据集
-  - [ ] 自动化测试脚本
-  - [ ] CI/CD 流水线
+  - [ ] HFSS/CST/ADS 电磁仿真模型
+  - [ ] GUI 自动化测试
 
 ---
 

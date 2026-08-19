@@ -54,6 +54,8 @@ vivado*.log
 *.mat
 *.cst
 *.ads
+# stc_simulation.py 运行产物（正式图归档于 docs/images/）
+stc_simulation_result.png
 
 # Documentation build
 docs/_build/
