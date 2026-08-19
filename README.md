@@ -100,6 +100,11 @@ PLFM-RIS-Enhanced/
 │   ├── STC_Encoder.v                 # Verilog 时空编码核心模块
 │   └── Top_Module.v                  # FPGA 顶层模块
 │
+├── 6_Simulation/                    # 软件仿真脚本
+│   └── stc_simulation.py            # STC 算法软件仿真
+│
+├── docs/images/                     # 文档配图（仿真结果等）
+│
 └── 9_GUI/                           # Python 上位机界面
     ├── main.py                       # PyQt5 主程序
     ├── ris_control.py                # RIS 控制器模块
@@ -168,6 +173,46 @@ python main.py
 
 ---
 
+## 🔬 软件仿真实现（路径A）
+
+`6_Simulation/stc_simulation.py` 提供完整的软件仿真链路:无需任何硬件与 GPU,仅依赖 Python 科学计算库即可验证 STC 雷达的核心信号处理流程,并生成论文/汇报素材。
+
+### 运行环境
+
+Python 3.8+，安装三个依赖包即可:
+
+```bash
+pip install numpy scipy matplotlib
+```
+
+### 运行方法
+
+```bash
+cd 6_Simulation
+python stc_simulation.py
+```
+
+脚本无报错即完成，当前目录下生成 4 子图结果 `stc_simulation_result.png`。
+
+### 仿真流程
+
+1. **LFM 信号生成**: 载频 10.5 GHz、带宽 100 MHz、脉宽 10 μs、采样率 200 MHz
+2. **波束方向图计算**: 8×8 阵列因子,扫描范围 ±60°,波束指向方位角 30°
+3. **目标回波与脉冲压缩**: 目标距离 500 m、速度 10 m/s,匹配滤波后理论距离分辨率 1.5 m
+4. **距离-多普勒处理**: 64 个脉冲做多普勒维 FFT,输出距离-速度二维图
+
+### 仿真结果
+
+![STC 仿真结果](docs/images/stc_simulation_result.png)
+
+四个子图分别为:LFM 时域波形(左上)、指向 30° 的波束方向图(右上)、500 m 处脉冲压缩尖峰(左下)与距离-多普勒图(右下)。
+
+### 修复记录
+
+- **2026-08-19**: 修复 `simulate_target_echo` 中的广播错误(ValueError: operands could not be broadcast together)。原实现中多普勒相位向量按完整信号长度生成,与延迟回波切片的长度不一致导致运行中断;现改为按回波切片长度生成,修复后脚本可完整跑通。
+
+---
+
 ## 📖 技术文档
 
 ### 核心文档
@@ -183,7 +228,7 @@ python main.py
 - `1_Project_Description/`: 系统规格说明书、架构说明
 - `3_Feed_Network/`: 威尔金森功分器、反射型移相器设计
 - `5_Control_Circuit/`: SPI 接口、串并转换、驱动电路
-- `6_Simulation/`: HFSS/CST/ADS/MATLAB 仿真模型
+- `6_Simulation/`: HFSS/CST/ADS/MATLAB 电磁仿真模型（软件算法仿真见上方章节）
 - `7_Application_Notes/`: 环境搭建、校准方法、故障排查
 - `8_Utils/`: 数据解析、校准工具、可视化脚本
 
