@@ -378,7 +378,6 @@ pytest -v
 
 ## 👥 作者
 
-本项目由 **Wukong AI Assistant** 基于 [PLFM_RADAR](https://github.com/NawfalMotii79/PLFM_RADAR) 项目改进开发。
 
 **当前维护者**: [@realsunmiao](https://github.com/realsunmiao)
 
